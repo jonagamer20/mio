@@ -1,0 +1,610 @@
+/* Colores de la pitahaya */
+:root {
+    --pitahaya-pink: #FF4D6D;
+    --pitahaya-dark-pink: #FF385C;
+    --pitahaya-light-pink: #FFE5E9;
+    --nature-green: #4CAF50;
+    --nature-light-green: #81C784;
+    --nature-dark-green: #388E3C;
+}
+
+body {
+    background-color: #ffffff;
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Eliminar el efecto gaussiano anterior */
+body::before {
+    display: none;
+}
+
+.container {
+    flex: 1 0 auto;
+    padding-bottom: 3rem; /* Espacio para el footer */
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.card-body {
+    padding: 2.5rem;
+}
+
+.btn-primary {
+    background-color: var(--pitahaya-pink);
+    border-color: var(--pitahaya-pink);
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--pitahaya-dark-pink);
+    border-color: var(--pitahaya-dark-pink);
+    transform: translateY(-2px);
+}
+
+/* Ajustar los text boxes */
+.form-control {
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Borde más sutil */
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.form-control:hover {
+    border-color: var(--pitahaya-pink);
+    border-width: 1px;
+}
+
+.form-control:focus {
+    border-color: var(--pitahaya-pink);
+    box-shadow: 0 0 0 0.1rem rgba(255, 77, 109, 0.15); /* Sombra más sutil al enfocar */
+}
+
+a {
+    color: var(--nature-dark-green);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--nature-green);
+}
+
+.logo-container {
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 1.5rem;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    background-color: transparent;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(255, 77, 109, 0.15);
+}
+
+.logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+h2 {
+    color: var(--pitahaya-dark-pink);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.5px;
+}
+
+.form-label {
+    color: var(--nature-dark-green);
+    font-weight: 500;
+}
+
+hr {
+    border-color: var(--pitahaya-light-pink);
+    opacity: 0.5;
+}
+
+/* Estilo para el modal */
+.modal-content {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(255, 77, 109, 0.15);
+}
+
+.modal-header {
+    background-color: var(--pitahaya-light-pink);
+    border-bottom: none;
+    border-radius: 15px 15px 0 0;
+}
+
+.modal-title {
+    color: var(--pitahaya-dark-pink);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+
+/* Estilo para el feedback de la contraseña */
+.form-text {
+    color: var(--nature-dark-green);
+}
+
+.form-text ul {
+    padding-left: 1.2rem;
+    margin-top: 0.5rem;
+}
+
+.invalid-feedback {
+    color: var(--pitahaya-dark-pink);
+}
+
+/* Estilos para el footer */
+.footer {
+    background-color: #f8f9fa;
+    padding: 2rem 0;
+    width: 100%;
+    flex-shrink: 0;
+    position: relative;
+    bottom: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.footer-title {
+    color: var(--pitahaya-dark-pink);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+
+.footer h5 {
+    color: var(--pitahaya-dark-pink);
+    margin-bottom: 1rem;
+}
+
+.footer ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer a {
+    color: var(--nature-dark-green);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    color: var(--pitahaya-pink);
+}
+
+.social-links a {
+    font-size: 1.5rem;
+}
+
+.footer hr {
+    margin: 2rem 0;
+    opacity: 0.1;
+}
+
+/* Estilos para las tarjetas de servicio */
+.service-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.service-icon {
+    width: 70px;
+    height: 70px;
+    background-color: var(--pitahaya-light-pink);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.service-icon i {
+    font-size: 2rem;
+    color: var(--pitahaya-dark-pink);
+}
+
+.service-card .card-title {
+    color: var(--pitahaya-dark-pink);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.service-card .card-text {
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Estilos para la navbar */
+.navbar {
+    padding: 1rem 2rem;
+    position: relative;
+    height: 70px;
+    overflow: hidden;
+}
+
+.navbar-brand {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: var(--pitahaya-dark-pink);
+}
+
+.navbar-brand img {
+    height: 40px;
+    width: auto;
+}
+
+/* Estilos para el mapa */
+.map-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#map {
+    transition: all 0.3s ease;
+    box-shadow: none;
+}
+
+#map:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Estilo para la información de ubicación */
+.location-info {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+/* Estilos para la estación meteorológica */
+.weather-card {
+    padding: 1.5rem;
+    border-radius: 10px;
+    background-color: #f8f9fa;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.weather-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.weather-card i {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.weather-card h5 {
+    color: var(--pitahaya-dark-pink);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+
+.weather-card p {
+    margin-bottom: 0;
+    font-weight: 500;
+}
+
+/* Estilos para el sidebar */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 250px;
+    background-color: #ffffff;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.sidebar.active {
+    display: none;
+}
+
+.sidebar-header {
+    padding: 1.5rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-logo {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 0.5rem;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 1rem 0;
+    margin: 0;
+}
+
+.menu-item {
+    padding: 0.5rem 1.5rem;
+}
+
+.menu-item a {
+    display: flex;
+    align-items: center;
+    color: #666;
+    text-decoration: none;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.menu-item a:hover, .menu-item a.active {
+    background-color: var(--pitahaya-light-pink);
+    color: var(--pitahaya-dark-pink);
+}
+
+.menu-item i {
+    margin-right: 0.75rem;
+    font-size: 1.2rem;
+}
+
+.sidebar-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 1.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    color: #666;
+    text-decoration: none;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #fee2e2;
+    color: #dc2626;
+}
+
+.logout-btn i {
+    margin-right: 0.75rem;
+}
+
+/* Ajustes para el contenido principal */
+.main-content {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+}
+
+/* Estilos para el navbar superior */
+.navbar .container-fluid {
+    z-index: 2;
+}
+
+#sidebarToggle {
+    display: none;
+}
+
+/* Media query para responsive */
+@media (max-width: 1200px) {
+    .main-content {
+        margin-left: 200px;
+        width: calc(100% - 200px);
+    }
+    
+    .sidebar {
+        width: 200px;
+    }
+}
+
+@media (max-width: 992px) {
+    /* Ajustes para tablets */
+    .weather-stat {
+        padding: 0.75rem;
+    }
+    
+    .weather-stat h3 {
+        font-size: 1.25rem;
+    }
+    
+    .card-body {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Ajustes para móviles */
+    .sidebar {
+        left: -250px;
+        transition: all 0.3s ease;
+    }
+    
+    .sidebar.active {
+        left: 0;
+        display: block;
+    }
+    
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+    
+    .main-content.shifted {
+        margin-left: 250px;
+    }
+    
+    /* Mostrar el botón de toggle en móviles */
+    #sidebarToggle {
+        display: block;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+    
+    /* Ajustar el mapa y la estación meteorológica */
+    .row.g-4 {
+        margin: 0;
+    }
+    
+    .col-lg-8, .col-lg-4 {
+        padding: 10px;
+    }
+    
+    #map {
+        height: 300px !important;
+    }
+    
+    /* Ajustar el footer */
+    .footer {
+        text-align: center;
+    }
+    
+    .footer .col-md-4 {
+        margin-bottom: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    /* Ajustes para móviles pequeños */
+    .navbar {
+        padding: 0.5rem 1rem;
+        height: 60px;
+    }
+    
+    .weather-stat {
+        margin-bottom: 1rem !important;
+    }
+    
+    .card-body {
+        padding: 1rem;
+    }
+    
+    .particles-container {
+        height: 60px;
+    }
+    
+    .sidebar {
+        width: 100%;
+    }
+    
+    .sidebar.active {
+        width: 100%;
+    }
+    
+    .main-content.shifted {
+        margin-left: 0;
+        opacity: 0.5;
+    }
+}
+
+/* Estilos minimalistas para el dashboard */
+.card {
+    background: #ffffff;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.weather-icon {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: #f8f9fa;
+}
+
+.weather-icon i {
+    font-size: 1.5rem;
+}
+
+.weather-stat {
+    padding: 0.5rem;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.weather-stat:hover {
+    background-color: #f8f9fa;
+}
+
+.weather-stat h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Ajustes para el contenedor principal */
+.container-fluid {
+    padding: 1.5rem;
+}
+
+.card-footer {
+    padding: 1rem 1.5rem;
+}
+
+/* Estilos para el contenedor de partículas */
+.particles-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, var(--pitahaya-dark-pink), var(--pitahaya-pink));
+    overflow: hidden;
+}
+
+.navbar span {
+    color: white;
+    font-weight: 500;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Estilos para la gestión de lotes */
+.card {
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.badge {
+    font-weight: 500;
+    padding: 0.5em 0.8em;
+}
+
+/* Colores de estado */
+.bg-info {
+    background-color: var(--bs-info) !important;
+}
+
+.bg-success {
+    background-color: var(--nature-green) !important;
+}
+
+.bg-warning {
+    background-color: var(--bs-warning) !important;
+} 

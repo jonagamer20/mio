@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Pitahaya Protector</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Montserrat Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="css/styles.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="images/logo.png" alt="Logo" class="sidebar-logo">
+            <h4>Pitahaya Protector</h4>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="menu-item">
+                <a href="dashboard.html" class="active">
+                    <i class="bi bi-speedometer2"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="lotes.html">
+                    <i class="bi bi-grid-3x3"></i>
+                    <span>Gestión de Lotes</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="insumos.html">
+                    <i class="bi bi-box-seam"></i>
+                    <span>Insumos y Fertilizantes</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="herramientas.html">
+                    <i class="bi bi-tools"></i>
+                    <span>Herramientas</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="cosechas.html">
+                    <i class="bi bi-basket"></i>
+                    <span>Registro de Cosechas</span>
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-footer">
+            <a href="#" id="logout" class="logout-btn">
+                <i class="bi bi-box-arrow-left"></i>
+                <span>Cerrar Sesión</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div class="main-content">
+        <!-- Navbar superior -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+            <div id="particles-js" class="particles-container"></div>
+            <div class="container-fluid position-relative">
+                <button id="sidebarToggle" class="btn d-lg-none">
+                    <i class="bi bi-list"></i>
+                </button>
+                <div class="ms-auto">
+                    <span class="me-3 text-white">Bienvenido</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Contenido del Dashboard -->
+        <div class="container-fluid py-4">
+            <div class="row g-4">
+                <!-- Mapa -->
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-0">
+                            <div id="map" style="height: 500px; width: 100%; border-radius: 10px;"></div>
+                        </div>
+                        <div class="card-footer bg-white border-0 py-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">Hacienda Frutapac, Santa Ana</small>
+                                <small class="text-muted" id="coordinates">1°13'18.3"S 80°11'39.7"W</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Estación Meteorológica -->
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h6 class="card-subtitle text-muted mb-0">Estación Meteorológica</h6>
+                                <small class="text-muted" id="lastUpdate">Actualizado: Hace 5 min</small>
+                            </div>
+                            
+                            <!-- Temperatura -->
+                            <div class="weather-stat mb-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="weather-icon">
+                                        <i class="bi bi-thermometer-half text-danger"></i>
+                                    </div>
+                                    <div class="ms-3">
+                                        <h3 class="mb-0" id="temperature">28°C</h3>
+                                        <small class="text-muted">Temperatura</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Humedad -->
+                            <div class="weather-stat mb-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="weather-icon">
+                                        <i class="bi bi-droplet text-primary"></i>
+                                    </div>
+                                    <div class="ms-3">
+                                        <h3 class="mb-0" id="humidity">65%</h3>
+                                        <small class="text-muted">Humedad</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Viento -->
+                            <div class="weather-stat mb-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="weather-icon">
+                                        <i class="bi bi-wind text-info"></i>
+                                    </div>
+                                    <div class="ms-3">
+                                        <h3 class="mb-0" id="windSpeed">12 km/h</h3>
+                                        <small class="text-muted">Velocidad del Viento</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Precipitación -->
+                            <div class="weather-stat">
+                                <div class="d-flex align-items-center">
+                                    <div class="weather-icon">
+                                        <i class="bi bi-water text-success"></i>
+                                    </div>
+                                    <div class="ms-3">
+                                        <h3 class="mb-0" id="rainfall">0.5 mm</h3>
+                                        <small class="text-muted">Precipitación</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer mt-auto py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5 class="footer-title">Pitahaya Protector</h5>
+                    <p class="text-muted">Protegiendo tu información digital</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Enlaces</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Términos y Condiciones</a></li>
+                        <li><a href="#">Política de Privacidad</a></li>
+                        <li><a href="#">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Síguenos</h5>
+                    <div class="social-links">
+                        <a href="#" class="me-2"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="me-2"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="me-2"><i class="bi bi-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p class="mb-0">&copy; 2024 Pitahaya Protector. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('logout').addEventListener('click', function(e) {
+            e.preventDefault();
+            // Aquí iría la lógica de cierre de sesión
+            window.location.href = 'index.html';
+        });
+    </script>
+
+    <!-- Google Maps JavaScript API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKHkXLmhNiMqrLQhfPnwul2Hn5ITnIRy4"></script>
+    <script>
+        function initMap() {
+            try {
+                // Coordenadas exactas de la Hacienda Frutapac
+                const hacienda = { 
+                    lat: -1.221750, 
+                    lng: -80.194361 
+                };
+                
+                const map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 16,
+                    center: hacienda,
+                    mapTypeId: 'hybrid',
+                    mapTypeControl: true,
+                    streetViewControl: true,
+                    fullscreenControl: true,
+                });
+
+                // Actualizar también el texto de las coordenadas
+                document.getElementById('coordinates').textContent = '-1.221750, -80.194361';
+
+                // Marcador simple
+                const marker = new google.maps.Marker({
+                    position: hacienda,
+                    map: map,
+                    title: "Hacienda Frutapac"
+                });
+
+                // Ventana de información
+                const infowindow = new google.maps.InfoWindow({
+                    content: `
+                        <div style="padding: 10px;">
+                            <h5 style="margin: 0 0 5px 0;">Hacienda Frutapac</h5>
+                            <p style="margin: 0;">1°13'18.3"S 80°11'39.7"W</p>
+                            <p style="margin: 0;">Santa Ana, Manabí, Ecuador</p>
+                        </div>
+                    `
+                });
+
+                marker.addListener("click", () => {
+                    infowindow.open(map, marker);
+                });
+
+            } catch (error) {
+                console.error('Error al cargar el mapa:', error);
+                document.getElementById('map').innerHTML = `
+                    <div class="alert alert-danger">
+                        Error al cargar el mapa. Por favor, verifica tu conexión a internet.
+                    </div>
+                `;
+            }
+        }
+
+        // Inicializar el mapa cuando se carga la página
+        window.onload = initMap;
+    </script>
+
+    <script>
+        // Función para actualizar los datos meteorológicos
+        async function updateWeatherData() {
+            try {
+                // Aquí iría la llamada a tu API de la estación meteorológica
+                // Por ahora usamos datos de ejemplo
+                const weatherData = {
+                    temperature: '28°C',
+                    humidity: '65%',
+                    windSpeed: '12 km/h',
+                    rainfall: '0.5 mm',
+                    lastUpdate: new Date().toLocaleTimeString()
+                };
+
+                // Actualizar los elementos en la página
+                document.getElementById('temperature').textContent = weatherData.temperature;
+                document.getElementById('humidity').textContent = weatherData.humidity;
+                document.getElementById('windSpeed').textContent = weatherData.windSpeed;
+                document.getElementById('rainfall').textContent = weatherData.rainfall;
+                document.getElementById('lastUpdate').textContent = 'Última actualización: ' + weatherData.lastUpdate;
+
+            } catch (error) {
+                console.error('Error al actualizar datos meteorológicos:', error);
+            }
+        }
+
+        // Actualizar datos cada 5 minutos
+        setInterval(updateWeatherData, 300000);
+        
+        // Primera actualización al cargar la página
+        updateWeatherData();
+    </script>
+
+    <!-- Antes del cierre del body, después de los otros scripts -->
+    <script src="js/dashboard.js"></script>
+
+    <script>
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": ["#FF4D6D", "#FF385C", "#FFE5E9"]
+                },
+                "shape": {
+                    "type": "circle"
+                },
+                "opacity": {
+                    "value": 0.8,
+                    "random": false
+                },
+                "size": {
+                    "value": 5,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 3,
+                        "size_min": 3,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#FF4D6D",
+                    "opacity": 0.6,
+                    "width": 2
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2,
+                    "direction": "none",
+                    "random": true,
+                    "straight": false,
+                    "out_mode": "bounce",
+                    "bounce": true
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 200,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "push": {
+                        "particles_nb": 6
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
+</body>
+</html> 
