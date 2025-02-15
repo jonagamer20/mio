@@ -1,8 +1,9 @@
 // Importa Firebase desde el CDN
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+import { getFirestore, collection, addDoc, doc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
-// Tu configuración de Firebase (obténla desde la consola de Firebase)
+// Configuración de Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyDasaNhd0OqhoVeXTM-dWt4Ea0FS8dWq30",
     authDomain: "pitahaya-protector-70a81.firebaseapp.com",
@@ -15,23 +16,90 @@ const firebaseConfig = {
 
 // Inicializa Firebase
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 const db = getFirestore(app);
 
-// Función para agregar un lote a Firestore
-async function agregarLote() {
-  try {
-    const docRef = await addDoc(collection(db, "lotes"), {
-      numero: 1,
-      area: 500,
-      fechaSiembra: new Date(),
-      estado: "En desarrollo",
-      cantidadPlantas: 100
-    });
-    console.log("Lote agregado con ID:", docRef.id);
-  } catch (e) {
-    console.error("Error al agregar el lote: ", e);
-  }
+// Función para validar email
+function validateEmail(email) {
+    return /\S+@\S+\.\S+/.test(email);
 }
 
-// Llama a la función para agregar un lote (puedes cambiar cuándo y cómo llamarla)
-agregarLote();
+// Función para validar contraseña (mínimo 6 caracteres)
+function validatePassword(password) {
+    return password.length >= 6;
+}
+
+// Función para registrar usuario con Firestore
+async function registerUser(email, password, firstName, lastName) {
+    if (!validateEmail(email)) {
+        return { success: false, message: "Email no válido." };
+    }
+    if (!validatePassword(password)) {
+        return { success: false, message: "La contraseña debe tener al menos 6 caracteres." };
+    }
+
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        await sendEmailVerification(user);
+
+        await setDoc(doc(db, "users", user.uid), {
+            firstName,
+            lastName,
+            email,
+            createdAt: new Date(),
+            emailVerified: false
+        });
+
+        return { success: true, message: "Usuario registrado. Verifica tu correo." };
+    } catch (error) {
+        console.error("Error en el registro:", error);
+        return { success: false, message: error.message };
+    }
+}
+
+// Función para iniciar sesión
+async function signInUser(email, password) {
+    if (!validateEmail(email) || !validatePassword(password)) {
+        return { success: false, message: "Credenciales inválidas." };
+    }
+
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        if (user.emailVerified) {
+            await updateDoc(doc(db, "users", user.uid), { emailVerified: true });
+        }
+
+        return { success: true, user };
+    } catch (error) {
+        console.error("Error en el inicio de sesión:", error);
+        return { success: false, message: error.message };
+    }
+}
+
+// Función para agregar un lote a Firestore
+async function agregarLote(numero, area, fechaSiembra, estado, cantidadPlantas) {
+    try {
+        const docRef = await addDoc(collection(db, "lotes"), {
+            numero,
+            area,
+            fechaSiembra,
+            estado,
+            cantidadPlantas
+        });
+        console.log("Lote agregado con ID:", docRef.id);
+        return { success: true, id: docRef.id };
+    } catch (error) {
+        console.error("Error al agregar el lote:", error);
+        return { success: false, message: error.message };
+    }
+}
+
+// Ejemplo de uso (puedes cambiar cuándo y cómo llamarlas)
+agregarLote(1, 500, new Date(), "En desarrollo", 100);
+
+// Exportar funciones
+export { auth, db, registerUser, signInUser, agregarLote };
